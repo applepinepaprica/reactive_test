@@ -5,7 +5,6 @@ import org.springframework.web.reactive.function.server.*
 import reactor.core.publisher.Mono
 import org.springframework.web.reactive.function.server.ServerResponse.ok
 import reactor.core.publisher.Flux
-import reactor.core.publisher.toMono
 import java.time.Duration
 
 @Component
@@ -20,17 +19,17 @@ class MyHandler (private val myRepository: MyRepository) {
 
     fun addStr(request: ServerRequest): Mono<ServerResponse> {
         val book = request.bodyToMono<Str>()
-        return ok().body(myRepository.saveAll(book).toMono())
+        return ok().body(myRepository.saveAll(book))
     }
 
     fun showStr(request: ServerRequest): Mono<ServerResponse> {
         val title = request.pathVariable("title")
-
         return ok().body(myRepository.findByTitle(title))
     }
 
     fun deleteStr(request: ServerRequest): Mono<ServerResponse> {
         val id = request.pathVariable("id")
-        return ok().body(myRepository.deleteById(id).toMono())
+        System.out.println("Deleting $id")
+        return ok().body(myRepository.deleteById(id))
     }
 }
