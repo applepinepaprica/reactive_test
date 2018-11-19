@@ -14,6 +14,7 @@ class MyRouting {
             GET("/", handler::showAll)
             GET("/{title}", handler::showStr)
             POST("/", handler::addStr)
+            DELETE("/{id}", handler::deleteStr)
         }
     }
 }

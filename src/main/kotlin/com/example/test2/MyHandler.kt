@@ -28,4 +28,9 @@ class MyHandler (private val myRepository: MyRepository) {
 
         return ok().body(myRepository.findByTitle(title))
     }
+
+    fun deleteStr(request: ServerRequest): Mono<ServerResponse> {
+        val id = request.pathVariable("id")
+        return ok().body(myRepository.deleteById(id).toMono())
+    }
 }
