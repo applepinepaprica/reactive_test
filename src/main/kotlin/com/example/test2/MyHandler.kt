@@ -24,7 +24,9 @@ class MyHandler (private val myRepository: MyRepository) {
 
     fun showStr(request: ServerRequest): Mono<ServerResponse> {
         val title = request.pathVariable("title")
-        return ok().body(myRepository.findByTitle(title))
+        val interval = Flux.interval(Duration.ofSeconds(1))
+        val strs = myRepository.findByTitle(title)
+        return ok().bodyToServerSentEvents(Flux.zip(interval, strs).map { it.t2 })
     }
 
     fun deleteStr(request: ServerRequest): Mono<ServerResponse> {
