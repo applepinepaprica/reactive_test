@@ -18,6 +18,9 @@ class Test2ApplicationTests {
 
 	@Test
 	fun contextLoads() {
-		client.get().uri("/").exchange().expectStatus().isOk
+		client.get().uri("/foo").exchange()
+			.expectStatus().isOk
+			.expectBody()
+			.jsonPath("$.title").isEqualTo("title")
 	}
 }

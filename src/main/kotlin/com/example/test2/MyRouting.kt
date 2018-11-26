@@ -12,6 +12,7 @@ class MyRouting {
     fun myRouter(handler: MyHandler) = router {
         ("/" and accept(MediaType.APPLICATION_JSON)).nest {
             GET("/", handler::showAll)
+            GET("/foo", handler::getFoo)
             GET("/{title}", handler::showStr)
             POST("/", handler::addStr)
             DELETE("/{id}", handler::deleteStr)
