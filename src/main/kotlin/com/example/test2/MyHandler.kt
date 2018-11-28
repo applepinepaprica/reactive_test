@@ -14,12 +14,13 @@ class MyHandler (private val myRepository: MyRepository) {
         //val interval = Flux.interval(Duration.ofSeconds(1))
         //val strs = myRepository.findAll()
         //return ok().bodyToServerSentEvents(Flux.zip(interval, strs).map { it.t2 })
-
+        System.out.println("Show all")
         return ok().body(myRepository.findAll())
     }
 
     fun addStr(request: ServerRequest): Mono<ServerResponse> {
         val book = request.bodyToMono<Str>()
+        System.out.println("Add str")
         return ok().body(myRepository.saveAll(book))
     }
 
@@ -28,7 +29,7 @@ class MyHandler (private val myRepository: MyRepository) {
         //val interval = Flux.interval(Duration.ofSeconds(1))
         //val strs = myRepository.findByTitle(title)
         //return ok().bodyToServerSentEvents(Flux.zip(interval, strs).map { it.t2 })
-
+        System.out.println("Find $title")
         return ok().body(myRepository.findByTitle(title))
     }
 
@@ -40,6 +41,7 @@ class MyHandler (private val myRepository: MyRepository) {
 
     fun getFoo(request: ServerRequest): Mono<ServerResponse> {
         val str = Str(title = "title")
+        System.out.println("Get foo")
         return ok().body(str.toMono())
     }
 }

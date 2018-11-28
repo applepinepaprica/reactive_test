@@ -7,6 +7,8 @@ import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWeb
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.test.web.reactive.server.WebTestClient
+import org.springframework.test.web.reactive.server.body
+import reactor.core.publisher.toMono
 import kotlin.test.assertFailsWith
 
 @RunWith(SpringRunner::class)
@@ -45,5 +47,29 @@ class Test2ApplicationTests {
 				.expectBody()
 				.jsonPath("$.*[?(@.title == 'fghjkn')]").isNotEmpty
 		}
+	}
+
+	@Test
+	fun addAndDelete() {
+        val str = "sxdcfvguyhijokp[;olj"
+		val input = Str(title = str)
+		val result = client.post().uri("/").body(input.toMono())
+			.exchange()
+			.expectStatus().isOk
+            .expectBodyList(Str::class.java)
+            .returnResult().responseBody!![0]
+
+        client.get().uri("/$str").exchange()
+            .expectStatus().isOk
+            .expectBody()
+            .jsonPath("$.*[?(@.title == '$str')]").isNotEmpty
+
+        client.delete().uri("/${result.id}").exchange()
+            .expectStatus().isOk
+
+        client.get().uri("/$str").exchange()
+            .expectStatus().isOk
+            .expectBody()
+            .jsonPath("$.*[?(@.title == '$str')]").isEmpty
 	}
 }
