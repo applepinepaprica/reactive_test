@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.test.web.reactive.server.WebTestClient
 import org.springframework.test.web.reactive.server.body
+import org.springframework.test.web.reactive.server.expectBodyList
 import reactor.core.publisher.toMono
 import kotlin.test.assertFailsWith
 
@@ -51,12 +52,12 @@ class Test2ApplicationTests {
 
 	@Test
 	fun addAndDelete() {
-        val str = "sxdcfvguyhijokpoljcfvghbnjmklsxdrcftvgybuhnjiumo"
+        val str = "sxdcfvguyhijokpoljcfsdfgvhjnk"
 		val input = Str(title = str)
 		val result = client.post().uri("/").body(input.toMono())
 			.exchange()
 			.expectStatus().isOk
-            .expectBodyList(Str::class.java)
+            .expectBodyList<Str>()
             .returnResult().responseBody!![0]
 
         client.get().uri("/$str").exchange()
