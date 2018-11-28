@@ -1,5 +1,6 @@
 package com.example.test2
 
+import org.hamcrest.Matchers
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -17,10 +18,18 @@ class Test2ApplicationTests {
 	private lateinit var client: WebTestClient
 
 	@Test
-	fun contextLoads() {
+	fun foo() {
 		client.get().uri("/foo").exchange()
 			.expectStatus().isOk
 			.expectBody()
 			.jsonPath("$.title").isEqualTo("title")
+	}
+
+	@Test
+	fun title() {
+		client.get().uri("/new").exchange()
+			.expectStatus().isOk
+			.expectBody()
+			.jsonPath("$[*].title", Matchers.everyItem(Matchers.equalTo("new")))
 	}
 }
