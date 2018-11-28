@@ -11,11 +11,11 @@ import java.time.Duration
 @Component
 class MyHandler (private val myRepository: MyRepository) {
     fun showAll(request: ServerRequest): Mono<ServerResponse> {
-        val interval = Flux.interval(Duration.ofSeconds(1))
-        val strs = myRepository.findAll()
-        return ok().bodyToServerSentEvents(Flux.zip(interval, strs).map { it.t2 })
+        //val interval = Flux.interval(Duration.ofSeconds(1))
+        //val strs = myRepository.findAll()
+        //return ok().bodyToServerSentEvents(Flux.zip(interval, strs).map { it.t2 })
 
-        //return ok().body(myRepository.findAll())
+        return ok().body(myRepository.findAll())
     }
 
     fun addStr(request: ServerRequest): Mono<ServerResponse> {
@@ -25,9 +25,11 @@ class MyHandler (private val myRepository: MyRepository) {
 
     fun showStr(request: ServerRequest): Mono<ServerResponse> {
         val title = request.pathVariable("title")
-        val interval = Flux.interval(Duration.ofSeconds(1))
-        val strs = myRepository.findByTitle(title)
-        return ok().bodyToServerSentEvents(Flux.zip(interval, strs).map { it.t2 })
+        //val interval = Flux.interval(Duration.ofSeconds(1))
+        //val strs = myRepository.findByTitle(title)
+        //return ok().bodyToServerSentEvents(Flux.zip(interval, strs).map { it.t2 })
+
+        return ok().body(myRepository.findByTitle(title))
     }
 
     fun deleteStr(request: ServerRequest): Mono<ServerResponse> {
