@@ -4,9 +4,7 @@ import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.server.*
 import reactor.core.publisher.Mono
 import org.springframework.web.reactive.function.server.ServerResponse.ok
-import reactor.core.publisher.Flux
 import reactor.core.publisher.toMono
-import java.time.Duration
 
 @Component
 class MyHandler (private val myRepository: MyRepository) {

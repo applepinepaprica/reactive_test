@@ -51,7 +51,7 @@ class Test2ApplicationTests {
 
 	@Test
 	fun addAndDelete() {
-        val str = "sxdcfvguyhijokp[;olj"
+        val str = "sxdcfvguyhijokpoljcfvghbnjmklsxdrcftvgybuhnjiumo"
 		val input = Str(title = str)
 		val result = client.post().uri("/").body(input.toMono())
 			.exchange()
