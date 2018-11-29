@@ -73,4 +73,10 @@ class Test2ApplicationTests {
             .expectBody()
             .jsonPath("$.*[?(@.title == '$str')]").isEmpty
 	}
+
+	@Test
+	fun getAll() {
+		client.get().uri("/").exchange()
+				.expectStatus().isOk
+	}
 }
