@@ -1,4 +1,4 @@
-package com.example.test2
+package com.example.test2.str
 
 import org.springframework.data.repository.reactive.ReactiveCrudRepository
 import org.springframework.stereotype.Repository
