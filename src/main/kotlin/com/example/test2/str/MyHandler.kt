@@ -1,4 +1,4 @@
-package com.example.test2
+package com.example.test2.str
 
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.server.*
